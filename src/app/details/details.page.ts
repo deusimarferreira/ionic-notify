@@ -3,6 +3,7 @@ import { EventsService } from '../events.service';
 import { NavController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { EventResponse, EmergencyEvent, Acknowledgement } from '../interfaces';
+import { Network } from '@ngx-pwa/offline';
 
 @Component({
   selector: 'app-details',
@@ -15,11 +16,13 @@ export class DetailsPage implements OnInit {
   event: EmergencyEvent;
   acknowledgements: Acknowledgement[] = [];
   newNote = '';
+  online$ = this.network.onlineChanges;
 
   constructor(
     private route: ActivatedRoute,
     private eventService: EventsService,
-    private nav: NavController) {
+    private nav: NavController,
+    protected network: Network) {
   }
 
   async ngOnInit() {
